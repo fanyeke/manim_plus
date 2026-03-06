@@ -1,0 +1,38 @@
+[project]
+name = "physics2video"
+version = "0.1.0"
+description = "高中物理题目转 Manim 讲解视频系统"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "manim>=0.20.1",
+    "langgraph>=0.2.0",
+    "pyyaml>=6.0",
+    "numpy>=2.0.0",
+    "pydub>=0.25.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = [
+    "F403",  # `from manim import *` used - expected Manim idiom
+    "F405",  # may be undefined from star imports - expected with Manim
+]
+
+[tool.ruff.lint.per-file-ignores]
+"examples/*.py" = ["F401"]  # unused imports in examples
+"tests/*.py" = ["F401"]  # unused imports in tests
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
